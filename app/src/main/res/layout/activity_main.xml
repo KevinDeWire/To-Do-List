@@ -37,19 +37,19 @@
             android:ems="10"
             android:gravity="center"
             android:hint="@string/input_task_title"
-            android:inputType="textPersonName"
+            android:inputType="text"
             android:text="@string/input_task_title"
-            tools:targetApi="o"/>
+            tools:targetApi="o" />
 
         <EditText
-            android:id="@+id/descriptionTaxt"
+            android:id="@+id/descriptionText"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:autofillHints=""
             android:ems="10"
             android:gravity="center"
             android:hint="@string/input_task_description"
-            android:inputType="textPersonName"
+            android:inputType="text"
             android:text="@string/input_task_description"
             tools:targetApi="o" />
 
