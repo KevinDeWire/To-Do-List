@@ -16,13 +16,22 @@ import static android.widget.LinearLayout.VERTICAL;
 
 public class MainActivity extends AppCompatActivity {
 
-    private ArrayList<String> mTitles = new ArrayList<>();
-    private ArrayList<String> mDescriptions = new ArrayList<>();
+    private ArrayList<ToDoTask> mTaskList = new ArrayList<>();
+
+    private RecyclerView recyclerView;
+    private RecyclerViewAdapter adapter;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
+
+        recyclerView = findViewById(R.id.recyclerView);
+        adapter = new RecyclerViewAdapter(this, mTaskList);
+        recyclerView.setAdapter(adapter);
+        recyclerView.setLayoutManager(new LinearLayoutManager(this));
+        DividerItemDecoration itemDecor = new DividerItemDecoration(this, VERTICAL);
+        recyclerView.addItemDecoration(itemDecor);
 
     }
 
@@ -31,21 +40,19 @@ public class MainActivity extends AppCompatActivity {
         EditText title = findViewById(R.id.titleText);
         EditText description = findViewById(R.id.descriptionText);
 
-        mTitles.add(title.getText().toString());
-        mDescriptions.add(description.getText().toString());
+        String taskTitle = title.getText().toString();
+        String taskDescription = description.getText().toString();
 
-        initRecyclerView();
+        ToDoTask newTask = new ToDoTask();
+        newTask.taskTitle = taskTitle;
+        newTask.taskDescription = taskDescription;
+
+        mTaskList.add(newTask);
+
+        adapter.notifyDataSetChanged();
 
         title.setText("");
         description.setText("");
     }
 
-    private void initRecyclerView(){
-        RecyclerView recyclerView = findViewById(R.id.recyclerView);
-        RecyclerViewAdapter adapter = new RecyclerViewAdapter(this, mTitles, mDescriptions);
-        recyclerView.setAdapter(adapter);
-        recyclerView.setLayoutManager(new LinearLayoutManager(this));
-        DividerItemDecoration itemDecor = new DividerItemDecoration(this, VERTICAL);
-        recyclerView.addItemDecoration(itemDecor);
-    }
 }

@@ -15,13 +15,11 @@ import java.util.ArrayList;
 
 public class RecyclerViewAdapter extends RecyclerView.Adapter<RecyclerViewAdapter.ViewHolder>{
 
-    private ArrayList<String> mTitles;
-    private ArrayList<String> mDescriptions;
+    private ArrayList<ToDoTask> mTaskList;
     private Context mContext;
 
-    public RecyclerViewAdapter(Context context, ArrayList<String> titles, ArrayList<String> descriptions) {
-        this.mTitles = titles;
-        this.mDescriptions = descriptions;
+    public RecyclerViewAdapter(Context context, ArrayList<ToDoTask> tasks) {
+        this.mTaskList = tasks;
         this.mContext = context;
     }
 
@@ -36,20 +34,27 @@ public class RecyclerViewAdapter extends RecyclerView.Adapter<RecyclerViewAdapte
     @Override
     public void onBindViewHolder(ViewHolder holder, final int position) {
 
-        holder.title.setText(mTitles.get(position));
-        holder.description.setText(mDescriptions.get(position));
+        holder.title.setText(mTaskList.get(position).taskTitle);
+        holder.description.setText(mTaskList.get(position).taskDescription);
 
-        holder.parentLayout.setOnClickListener(new View.OnClickListener() {
+        final ToDoTask taskData = mTaskList.get(position);
+
+        holder.parentLayout.setOnLongClickListener(new View.OnLongClickListener() {
             @Override
-            public void onClick(View v) {
-                Toast.makeText(mContext, mTitles.get(position), Toast.LENGTH_SHORT).show();
+            public boolean onLongClick(View v) {
+
+                Toast.makeText(mContext, mTaskList.get(position).taskTitle + " removed", Toast.LENGTH_SHORT).show();
+
+                removeTask(taskData);
+
+                return true;
             }
         });
     }
 
     @Override
     public int getItemCount() {
-        return mTitles.size();
+        return mTaskList.size();
     }
 
 
@@ -66,4 +71,12 @@ public class RecyclerViewAdapter extends RecyclerView.Adapter<RecyclerViewAdapte
             parentLayout = itemView.findViewById(R.id.parent_layout);
         }
     }
+
+    private void removeTask(ToDoTask taskData){
+
+        int currPosition = mTaskList.indexOf(taskData);
+        mTaskList.remove(currPosition);
+        notifyItemRemoved(currPosition);
+    }
+
 }
