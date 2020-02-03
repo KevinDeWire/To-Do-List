@@ -14,10 +14,8 @@ decisions. Graduate students may go beyond one page, with additional information
 implementation of the graduate student requirements.
 
 1. 40 points maximum - DONE
-
 We’re going to write a “To-do list” app. The goal of this app is to be able to add things that you
 need to do to a list on the screen. The requirements for the layout are:
-
 • There should be a general title: To Do List (5 points)
 • For each task, there should be a task title and a short task description. (5 points)
 • There should be two lines of EditText boxes to input the “task title” and the “task
@@ -36,17 +34,14 @@ https://developer.android.com/guide/topics/ui/layout/recyclerview
 It must be oriented in the bottom right. (5 points)
 
 2. 20 points maximum - DONE
-
 Add a function on each task item in the listView: When the user holds an item for a long
 time, that item is deleted from the list. Note: short click should do nothing.
 
 3. 20 points maximum - DONE
-
 Add a function to the “Add” button. By pressing the button, save the current contents of
 the listView to a text file on the phone.
 
 4. 20 points maximum
-
 When the user TERMINATES AND REOPENS, NOT “CLOSES” the app, the existing list should
 be loaded and shown in the ListView/RecyclerView.
 
