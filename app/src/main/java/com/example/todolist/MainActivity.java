@@ -8,6 +8,7 @@ import androidx.recyclerview.widget.RecyclerView;
 import android.os.Bundle;
 import android.os.Environment;
 import android.view.View;
+import android.widget.Button;
 import android.widget.EditText;
 
 import java.io.BufferedWriter;
@@ -31,14 +32,27 @@ public class MainActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
+        buildRecyclerView();
+
+        Button addButton = findViewById(R.id.addButton);
+        addButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                addTask(v);
+                saveTaskListToText();
+            }
+        });
+    }
+
+    private void buildRecyclerView(){
         recyclerView = findViewById(R.id.recyclerView);
         adapter = new RecyclerViewAdapter(this, mTaskList);
         recyclerView.setAdapter(adapter);
         recyclerView.setLayoutManager(new LinearLayoutManager(this));
         DividerItemDecoration itemDecor = new DividerItemDecoration(this, VERTICAL);
         recyclerView.addItemDecoration(itemDecor);
-
     }
+
 
     // the task title and descriptionare read from the edit test blocks and added to the ArrayList holding all tasks
     public void addTask(View view) {
@@ -53,8 +67,6 @@ public class MainActivity extends AppCompatActivity {
 
         mTaskList.add(newTask);
 
-        saveTaskList();
-
         adapter.notifyDataSetChanged();
 
         title.setText("");
@@ -62,15 +74,15 @@ public class MainActivity extends AppCompatActivity {
     }
 
     // The task list is converted into a String and then saved to a file in the Download file.
-    private void saveTaskList() {
+    private void saveTaskListToText() {
 
         BufferedWriter writer;
         StringBuilder taskListOutput = new StringBuilder();
 
         for (int i = 0; i < mTaskList.size(); i++){
-            taskListOutput.append(mTaskList.get(i).getTaskTitle());
+            taskListOutput.append(mTaskList.get(i).getTitle());
             taskListOutput.append(" : ");
-            taskListOutput.append(mTaskList.get(i).getTaskDescription());
+            taskListOutput.append(mTaskList.get(i).getDescription());
             taskListOutput.append("\n");
         }
 

@@ -65,8 +65,7 @@
             android:layout_height="wrap_content"
             android:layout_gravity="end"
             android:layout_margin="8dp"
-            android:text="@string/add"
-            android:onClick="addTask"/>
+            android:text="@string/add"/>
     </LinearLayout>
 
 

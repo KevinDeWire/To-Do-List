@@ -43,7 +43,7 @@ public class RecyclerViewAdapter extends RecyclerView.Adapter<RecyclerViewAdapte
             @Override
             public boolean onLongClick(View v) {
 
-                Toast.makeText(mContext, mTaskList.get(position).getTaskTitle() + " removed", Toast.LENGTH_SHORT).show();
+                Toast.makeText(mContext, mTaskList.get(position).getTitle() + " removed", Toast.LENGTH_SHORT).show();
 
                 removeTask(taskData);
 

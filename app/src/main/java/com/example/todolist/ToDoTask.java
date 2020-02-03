@@ -1,22 +1,20 @@
 package com.example.todolist;
 
-import java.io.Serializable;
-
-public class ToDoTask implements Serializable {
+class ToDoTask {
 
     String taskTitle;
     String taskDescription;
 
-    public ToDoTask(String taskTitle, String taskDescription){
+    ToDoTask(String taskTitle, String taskDescription){
         this.taskTitle = taskTitle;
         this.taskDescription = taskDescription;
     }
 
-    public String getTaskTitle(){
+    String getTitle(){
         return taskTitle;
     }
 
-    public String getTaskDescription(){
+    String getDescription(){
         return taskDescription;
     }
 
