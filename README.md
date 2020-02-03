@@ -17,6 +17,7 @@ implementation of the graduate student requirements.
 
 We’re going to write a “To-do list” app. The goal of this app is to be able to add things that you
 need to do to a list on the screen. The requirements for the layout are:
+
 • There should be a general title: To Do List (5 points)
 • For each task, there should be a task title and a short task description. (5 points)
 • There should be two lines of EditText boxes to input the “task title” and the “task
