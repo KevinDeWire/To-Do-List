@@ -18,7 +18,7 @@ public class RecyclerViewAdapter extends RecyclerView.Adapter<RecyclerViewAdapte
     private ArrayList<ToDoTask> mTaskList;
     private Context mContext;
 
-    public RecyclerViewAdapter(Context context, ArrayList<ToDoTask> tasks) {
+    RecyclerViewAdapter(Context context, ArrayList<ToDoTask> tasks) {
         this.mTaskList = tasks;
         this.mContext = context;
     }
@@ -43,7 +43,7 @@ public class RecyclerViewAdapter extends RecyclerView.Adapter<RecyclerViewAdapte
             @Override
             public boolean onLongClick(View v) {
 
-                Toast.makeText(mContext, mTaskList.get(position).taskTitle + " removed", Toast.LENGTH_SHORT).show();
+                Toast.makeText(mContext, mTaskList.get(position).getTaskTitle() + " removed", Toast.LENGTH_SHORT).show();
 
                 removeTask(taskData);
 
@@ -58,13 +58,13 @@ public class RecyclerViewAdapter extends RecyclerView.Adapter<RecyclerViewAdapte
     }
 
 
-    public class ViewHolder extends RecyclerView.ViewHolder{
+    class ViewHolder extends RecyclerView.ViewHolder{
 
         TextView title;
         TextView description;
         LinearLayout parentLayout;
 
-        public ViewHolder(View itemView) {
+        ViewHolder(View itemView) {
             super(itemView);
             title = itemView.findViewById(R.id.titleView);
             description = itemView.findViewById(R.id.descriptionView);

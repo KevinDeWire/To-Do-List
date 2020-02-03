@@ -9,15 +9,12 @@ import android.os.Bundle;
 import android.os.Environment;
 import android.view.View;
 import android.widget.EditText;
-import android.widget.Toast;
 
+import java.io.BufferedWriter;
 import java.io.File;
-import java.io.FileOutputStream;
-import java.io.IOException;
-import java.io.ObjectOutputStream;
+import java.io.FileWriter;
 import java.util.ArrayList;
 
-import static android.widget.LinearLayout.HORIZONTAL;
 import static android.widget.LinearLayout.VERTICAL;
 
 public class MainActivity extends AppCompatActivity {
@@ -43,6 +40,7 @@ public class MainActivity extends AppCompatActivity {
 
     }
 
+    // the task title and descriptionare read from the edit test blocks and added to the ArrayList holding all tasks
     public void addTask(View view) {
 
         EditText title = findViewById(R.id.titleText);
@@ -63,19 +61,27 @@ public class MainActivity extends AppCompatActivity {
         description.setText("");
     }
 
+    // The task list is converted into a String and then saved to a file in the Download file.
     private void saveTaskList() {
+
+        BufferedWriter writer;
+        StringBuilder taskListOutput = new StringBuilder();
+
+        for (int i = 0; i < mTaskList.size(); i++){
+            taskListOutput.append(mTaskList.get(i).getTaskTitle());
+            taskListOutput.append(" : ");
+            taskListOutput.append(mTaskList.get(i).getTaskDescription());
+            taskListOutput.append("\n");
+        }
+
+        File outputFile = new File(Environment.getExternalStoragePublicDirectory(Environment.DIRECTORY_DOWNLOADS), "toDoList.txt");
 
         if (Environment.MEDIA_MOUNTED.equals(Environment.getExternalStorageState())) {
             try {
-                // create a file in downloads directory
-                FileOutputStream fos =
-                        new FileOutputStream(
-                                new File(Environment.getExternalStoragePublicDirectory(
-                                        Environment.DIRECTORY_DOWNLOADS), "toDoList.txt")
-                        );
-                ObjectOutputStream os = new ObjectOutputStream(fos);
-                os.writeObject(mTaskList);
-                os.close();
+
+                writer = new BufferedWriter( new FileWriter( outputFile.getAbsolutePath(), false ));
+                writer.write(taskListOutput.toString());
+                writer.close();
 
             } catch(Exception ex) {
                 ex.printStackTrace();
