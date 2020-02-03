@@ -1,5 +1,6 @@
 package com.example.todolist;
 
+import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.recyclerview.widget.DividerItemDecoration;
 import androidx.recyclerview.widget.LinearLayoutManager;
@@ -20,7 +21,7 @@ import static android.widget.LinearLayout.VERTICAL;
 
 public class MainActivity extends AppCompatActivity {
 
-    private ArrayList<ToDoTask> mTaskList = new ArrayList<>();
+    private ArrayList<ToDoTask> mTaskList;
 
     private RecyclerView recyclerView;
     private RecyclerViewAdapter adapter;
@@ -30,6 +31,15 @@ public class MainActivity extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+
+        if(savedInstanceState == null || !savedInstanceState.containsKey("key")) {
+            mTaskList = new ArrayList<ToDoTask>();
+        }
+        else {
+            mTaskList = savedInstanceState.getParcelableArrayList("key");
+
+        }
+
         setContentView(R.layout.activity_main);
 
         buildRecyclerView();
@@ -42,6 +52,18 @@ public class MainActivity extends AppCompatActivity {
                 saveTaskListToText();
             }
         });
+    }
+
+    @Override
+    protected void onSaveInstanceState(Bundle outState) {
+        outState.putParcelableArrayList("key", mTaskList);
+        super.onSaveInstanceState(outState);
+    }
+
+    @Override
+    protected void onRestoreInstanceState(@NonNull Bundle savedInstanceState){
+        super.onRestoreInstanceState(savedInstanceState);
+        mTaskList = savedInstanceState.getParcelableArrayList("key");
     }
 
     private void buildRecyclerView(){
