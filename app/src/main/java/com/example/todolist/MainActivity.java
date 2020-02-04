@@ -125,11 +125,8 @@ public class MainActivity extends AppCompatActivity {
 
             } catch(Exception ex) {
                 ex.printStackTrace();
-
             }
-
         }
-
     }
 
     //Checks for a save file, if there is one it is loaded into the task list.
