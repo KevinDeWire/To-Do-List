@@ -77,6 +77,7 @@ public class RecyclerViewAdapter extends RecyclerView.Adapter<RecyclerViewAdapte
         int currPosition = mTaskList.indexOf(taskData);
         mTaskList.remove(currPosition);
         notifyItemRemoved(currPosition);
+        MainActivity.saveTaskListToText();
     }
 
 }
