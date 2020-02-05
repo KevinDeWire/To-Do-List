@@ -2,24 +2,20 @@ package com.example.todolist;
 
 import android.os.Bundle;
 import android.os.Environment;
-import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
 
-import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.recyclerview.widget.DividerItemDecoration;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
-import java.io.BufferedReader;
 import java.io.BufferedWriter;
 import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.FileReader;
 import java.io.FileWriter;
-import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Scanner;
 
@@ -35,13 +31,6 @@ public class MainActivity extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-
-/*        if(savedInstanceState == null || !savedInstanceState.containsKey("key")) {
-            mTaskList = new ArrayList<ToDoTask>();
-        }
-        else {
-            mTaskList = savedInstanceState.getParcelableArrayList("key");
-        }*/
 
         if (mTaskList.isEmpty()){
             loadTaskList();
@@ -61,18 +50,6 @@ public class MainActivity extends AppCompatActivity {
         });
     }
 
-/*    @Override
-    protected void onSaveInstanceState(Bundle outState) {
-        outState.putParcelableArrayList("key", mTaskList);
-        super.onSaveInstanceState(outState);
-    }
-
-    @Override
-    protected void onRestoreInstanceState(@NonNull Bundle savedInstanceState){
-        super.onRestoreInstanceState(savedInstanceState);
-        mTaskList = savedInstanceState.getParcelableArrayList("key");
-    }*/
-
     private void buildRecyclerView(){
         recyclerView = findViewById(R.id.recyclerView);
         adapter = new RecyclerViewAdapter(this, mTaskList);
@@ -83,7 +60,7 @@ public class MainActivity extends AppCompatActivity {
     }
 
 
-    // the task title and descriptionare read from the edit test blocks and added to the ArrayList holding all tasks
+    // the task title and description are read from the edit test blocks and added to the ArrayList holding all tasks
     public void addTask(View view) {
 
         EditText title = findViewById(R.id.titleText);

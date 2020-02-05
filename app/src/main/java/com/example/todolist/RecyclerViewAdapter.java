@@ -4,6 +4,7 @@ import android.content.Context;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.CheckBox;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -28,6 +29,7 @@ public class RecyclerViewAdapter extends RecyclerView.Adapter<RecyclerViewAdapte
     public ViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
         View view = LayoutInflater.from(parent.getContext()).inflate(R.layout.layout_todo_item, parent, false);
         ViewHolder holder = new ViewHolder(view);
+
         return holder;
     }
 
@@ -36,20 +38,26 @@ public class RecyclerViewAdapter extends RecyclerView.Adapter<RecyclerViewAdapte
 
         holder.title.setText(mTaskList.get(position).taskTitle);
         holder.description.setText(mTaskList.get(position).taskDescription);
+        holder.deleteBox.setChecked(false);
 
         final ToDoTask taskData = mTaskList.get(position);
+        CheckBox deleteBox = holder.itemView.findViewById(R.id.checkBox);
 
         holder.parentLayout.setOnLongClickListener(new View.OnLongClickListener() {
             @Override
             public boolean onLongClick(View v) {
-
-                Toast.makeText(mContext, mTaskList.get(position).getTitle() + " removed", Toast.LENGTH_SHORT).show();
-
                 removeTask(taskData);
-
                 return true;
             }
         });
+
+        deleteBox.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                removeTask(taskData);
+            }
+        });
+
     }
 
     @Override
@@ -62,22 +70,27 @@ public class RecyclerViewAdapter extends RecyclerView.Adapter<RecyclerViewAdapte
 
         TextView title;
         TextView description;
+        CheckBox deleteBox;
         LinearLayout parentLayout;
 
         ViewHolder(View itemView) {
             super(itemView);
             title = itemView.findViewById(R.id.titleView);
             description = itemView.findViewById(R.id.descriptionView);
+            deleteBox = itemView.findViewById(R.id.checkBox);
             parentLayout = itemView.findViewById(R.id.parent_layout);
+
         }
     }
 
     private void removeTask(ToDoTask taskData){
 
         int currPosition = mTaskList.indexOf(taskData);
+        Toast.makeText(mContext, mTaskList.get(currPosition).getTitle() + " removed", Toast.LENGTH_SHORT).show();
         mTaskList.remove(currPosition);
         notifyItemRemoved(currPosition);
         MainActivity.saveTaskListToText();
+
     }
 
 }
